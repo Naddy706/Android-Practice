@@ -3,10 +3,15 @@ package com.example.myapplication;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,49 +20,42 @@ import android.view.ViewGroup;
  */
 public class ChatFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
 
-    // TODO: Rename and change types of parameters
-    private int mParam1;
+    //RecyclerView chatList
+    private RecyclerView chatList;
+    //RecyclerView chatList
+
 
 
     public ChatFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ChatFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ChatFragment newInstance(String param1, String param2) {
-        ChatFragment fragment = new ChatFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-     //   args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-         //   mParam1 = getArguments().getString(ARG_PARAM1);
-       //     mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chat, container, false);
+View view =inflater.inflate(R.layout.fragment_chat, container, false);
+        //RecyclerView chatList
+        chatList = view.findViewById(R.id.ChatList);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        chatList.setLayoutManager(linearLayoutManager);
+        //RecyclerView chatList
+
+//List ModelClass
+        List<ChatListModel> chatListModels = new ArrayList<>();
+        chatListModels.add(new ChatListModel(R.drawable.ic_launcher_background,"Admin1","This is admin Descption1"));
+        chatListModels.add(new ChatListModel(R.drawable.ic_launcher_background,"Admin2","This is admin Descption2"));
+        chatListModels.add(new ChatListModel(R.drawable.ic_launcher_background,"Admin3","This is admin Descption3"));
+        chatListModels.add(new ChatListModel(R.drawable.ic_launcher_background,"Admin4","This is admin Descption4"));
+        chatListModels.add(new ChatListModel(R.drawable.ic_launcher_background,"Admin5","This is admin Descption5"));
+        chatListModels.add(new ChatListModel(R.drawable.ic_launcher_background,"Admin6","This is admin Descption6"));
+
+        Adapter adapter = new Adapter(chatListModels);
+        chatList.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+        return view;
     }
 }
