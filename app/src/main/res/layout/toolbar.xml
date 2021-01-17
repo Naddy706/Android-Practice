@@ -4,7 +4,9 @@
     android:layout_height="wrap_content"
     android:background="@drawable/appbar_bg"
     android:elevation="20dp"
+    android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
     >
+
 
 
 </androidx.appcompat.widget.Toolbar>
