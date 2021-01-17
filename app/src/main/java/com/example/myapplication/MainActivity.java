@@ -10,19 +10,39 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
 
+    //Appbar customize
     Toolbar tool;
+    //Appbar customize
+
+    // Tablayout and Frangments
+    ViewPager myViewPager;
+    TabLayout myTabLayout;
+    SampleFragmentPagerAdapter SampleFragmentPagerAdapter;
+    // Tablayout and Frangments
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+//Appbar customize
         tool = findViewById(R.id.toolbar);
         setSupportActionBar(tool);
+//Appbar customize
 
+        // Tablayout and Frangments
+        myViewPager=(ViewPager) findViewById(R.id.viewpager);
+        SampleFragmentPagerAdapter = new SampleFragmentPagerAdapter(getSupportFragmentManager());
+        myViewPager.setAdapter(SampleFragmentPagerAdapter);
+
+        myTabLayout=(TabLayout) findViewById(R.id.sliding_tabs);
+        myTabLayout.setupWithViewPager(myViewPager);
+        // Tablayout and Frangments
 
 
 
