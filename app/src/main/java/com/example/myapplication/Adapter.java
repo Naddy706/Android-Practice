@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -42,7 +44,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.Viewholder> {
         return chatListModelList.size();
     }
 
-
+    public void setFilter(ArrayList<ChatListModel> newsArrayList) {
+        chatListModelList.clear();
+        chatListModelList.addAll(newsArrayList);
+        notifyDataSetChanged();
+    }
 
 
     class Viewholder extends RecyclerView.ViewHolder{
@@ -68,4 +74,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.Viewholder> {
 
         }
     }
+
+
+
 }

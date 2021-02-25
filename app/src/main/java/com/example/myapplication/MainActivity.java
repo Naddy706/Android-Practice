@@ -2,12 +2,14 @@ package com.example.myapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
@@ -16,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     // Tablayout and Frangments
 
 
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,16 +57,27 @@ public class MainActivity extends AppCompatActivity {
         myTabLayout.setupWithViewPager(myViewPager);
         // Tablayout and Frangments
 
+        mAuth = FirebaseAuth.getInstance();
 
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser == null){
+            login();
+        }
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu,menu);
+      //  MenuInflater inflater = getMenuInflater();
+    //    inflater.inflate(R.menu.main_menu,menu);
+
 
         return true;
     }
@@ -70,15 +86,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.Logout :
-                logout();
-                return true;
             case R.id.setting :
                 setting();
-                return true;
             case R.id.Profile :
                 profile();
-                return true;
+            case R.id.Logout :
+                logout();
+            case R.id.find_friends :
+                findfriends();
             default:
             return super.onOptionsItemSelected(item);
 
@@ -89,7 +104,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void logout(){
-        Toast.makeText(this, "Logout click", Toast.LENGTH_SHORT).show();
+        FirebaseAuth.getInstance().signOut();
+        login();
     }
 
 
@@ -102,6 +118,16 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "Profile click", Toast.LENGTH_SHORT).show();
     }
 
+    public void login(){
+        Intent i = new Intent(MainActivity.this,LoginActivity.class);
+        startActivity(i);
+        finish();
+    }
+
+    public void findfriends(){
+        Intent i = new Intent(MainActivity.this,FindFriends.class);
+        startActivity(i);
+    }
 
 
 }

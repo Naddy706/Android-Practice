@@ -12,12 +12,19 @@
         android:id="@+id/setting"
         android:title="Setting"
         android:icon="@drawable/ic_baseline_settings_24"
-        app:showAsAction="always">
+        app:showAsAction="always"
+        >
     </item>
 
     <item
+        android:title="Find Friends"
+        android:id="@+id/find_friends">
+
+    </item>
+    <item
         android:id="@+id/Profile"
-        android:title="Profile">
+        android:title="Profile"
+        >
     </item>
     <item
         android:id="@+id/Logout"
